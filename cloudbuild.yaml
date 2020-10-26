@@ -44,12 +44,10 @@ steps:
              '--tag-file', "${_TAG_FILE}"]
     
     # FIX(glasnt) For tags identified, remove them
-    # requires a local file: delete-tags.sh
-    # 
     - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
       entrypoint: 'gcloud'
       env: ['_SERVICE=$_SERVICE', 'PROJECT_ID=PROJECT_ID', '_REGION=$_REGION', '_TAG_FILE=$_TAG_FILE']
-      args: ['beta', 'run', 'services', 'update-traffic', '${SERVICE}',
+      args: ['beta', 'run', 'services', 'update-traffic', '${SERVICE}', '--region', '$_REGION',
              '--platform', 'managed', '--project', '${PROJECT_ID}', '--remove-tags', '$(cat ${_TAG_FILE})']
 
 substitutions:
