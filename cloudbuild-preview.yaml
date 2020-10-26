@@ -35,9 +35,10 @@ steps:
              '--region', '${_REGION}',
              '--service', '${_SERVICE_NAME}',
              '--pull-request', '${_PR_NUMBER}',
-             '--repo-name', '${_GITHUB_USER}/${REPO_NAME}',
+             '--repo-name', '${_GITHUB_REPO}',
              '--commit-sha', '${SHORT_SHA}']
 
 substitutions: 
     _SERVICE_NAME: myservice
     _REGION: us-central1
+    _GITHUB_REPO: $(pull_request.pull_request.head.repo.full_name)

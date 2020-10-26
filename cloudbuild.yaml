@@ -40,7 +40,7 @@ steps:
              '--project-id', '${PROJECT_ID}',
              '--region', '${_REGION}',
              '--service', '${_SERVICE_NAME}',
-             '--repo-name', '${_GITHUB_USER}/${REPO_NAME}',
+             '--repo-name', '${_GITHUB_REPO}',
              '--tag-file', "${_TAG_FILE}"]
     
     # FIX(glasnt) For tags identified, remove them
@@ -48,9 +48,12 @@ steps:
     # 
     - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
       entrypoint: '/bin/sh'
-      args: ['./delete-tags.sh', "${SERVICE}", "${REGION}", "${_TAG_FILE}"]
+      env: ['_SERVICE=$_SERVICE', 'PROJECT_ID=PROJECT_ID', '_REGION=$_REGION', '_TAG_FILE=$_TAG_FILE']
+      args: ['gcloud', 'beta', 'run', 'services', 'update-traffic', '${SERVICE}',
+             '--platform', 'managed', '--project', '${PROJECT_ID}', '--remove-tags', '$(cat ${_TAG_FILE})']
 
 substitutions:
     _SERVICE_NAME: myservice
     _REGION: us-central1
     _TAG_FILE: tags-to-delete.txt
+    _GITHUB_REPO: $(push.repository.name)
