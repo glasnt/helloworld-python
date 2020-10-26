@@ -2,9 +2,6 @@
 
 echo "Usage: ./delete-tags.sh SERVICE TAG_FILE"
 
-SERVICE=$1
-TAG_FILE=$2
-
 TAGS=$(cat $TAG_FILE)
 
 echo "TAGS RECEIVED: $TAGS"
