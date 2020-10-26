@@ -41,4 +41,3 @@ steps:
 substitutions: 
     _SERVICE_NAME: myservice
     _REGION: us-central1
-    _OWNER: $(push.repository.owner.name)
