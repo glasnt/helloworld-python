@@ -24,17 +24,31 @@ steps:
     - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
       entrypoint: 'gcloud'
       args: ['run', 'deploy', '${_SERVICE_NAME}',
-             '--platform', 'managed', '--region', '${_REGION}',
-             '--allow-unauthenticated',
-             '--image', 'gcr.io/${PROJECT_ID}/${_SERVICE_NAME}']
+       '--platform', 'managed', '--region', '${_REGION}',
+       '--allow-unauthenticated',
+       '--image', 'gcr.io/${PROJECT_ID}/${_SERVICE_NAME}']
 
     # Force the new revision to serve 100% of traffic.
     - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
       entrypoint: 'gcloud'
       args: ['run', 'services', 'update-traffic', '${_SERVICE_NAME}', '--to-latest',
-             '--platform', 'managed',
-             '--region', '${_REGION}']
+       '--platform', 'managed', '--region', '${_REGION}']
+
+    # Cleanup tags against closed pull requests
+    - name: 'gcr.io/${PROJECT_ID}/deployment-previews'
+      args: ['cleanup',
+             '--project-id', '${PROJECT_ID}',
+             '--region', '${_REGION}',
+             '--service', '${_SERVICE_NAME}',
+             '--repo-name', '${_GITHUB_USER}/${REPO_NAME}',
+             '--tag-file', "${_TAG_FILE}"]
+    
+    # FIX(glasnt) For tags identified, remove them
+    - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+      entrypoint: '/bin/sh'
+      args: ['./delete-tags.sh', "${_TAG_FILE}"]
 
 substitutions:
     _SERVICE_NAME: myservice
     _REGION: us-central1
+    _TAG_FILE: tags-to-delete.txt
