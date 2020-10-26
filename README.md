@@ -1,6 +1,5 @@
 # Hello World, Python
 
-
 A template repository for a sample Cloud Run service, written in Python
 
  * `app.py` sourced from the [knative sample documentation](https://github.com/knative/docs/blob/master/docs/serving/samples/hello-world/helloworld-python/app.py)
