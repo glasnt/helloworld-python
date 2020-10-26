@@ -9,6 +9,6 @@ TAGS=$(cat $TAG_FILE)
 
 echo "TAGS RECEIVED: $TAGS"
 
-echo "WOULD EXECUTE: gcloud beta run services update-traffic ${SERVICE} --remove-tags $TAGS"
+echo "WOULD EXECUTE: gcloud beta run services update-traffic ${SERVICE} --platform managed --remove-tags $TAGS"
 
-gcloud beta run services describe $SERVICE
+gcloud beta run services describe $SERVICE --platform managed
