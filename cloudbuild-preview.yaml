@@ -41,4 +41,4 @@ steps:
 substitutions: 
     _SERVICE_NAME: myservice
     _REGION: us-central1
-    _OWNER: pull_request.pull_request.owner
+    _OWNER: $(pull_request.pull_request.owner)
