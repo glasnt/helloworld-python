@@ -49,7 +49,8 @@ steps:
     - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
       entrypoint: '/bin/sh'
       env: ['_SERVICE=$_SERVICE', 'PROJECT_ID=PROJECT_ID', '_REGION=$_REGION', '_TAG_FILE=$_TAG_FILE']
-      args: ['./delete-tags.sh']
+      args: ['gcloud', 'beta', 'run', 'services', 'update-traffic', '${SERVICE}',
+             '--platform', 'managed', '--project', '${PROJECT_ID}', '--remove-tags', '$(cat ${_TAG_FILE})']
 
 substitutions:
     _SERVICE_NAME: myservice
