@@ -40,7 +40,7 @@ steps:
              '--project-id', '${PROJECT_ID}',
              '--region', '${_REGION}',
              '--service', '${_SERVICE_NAME}',
-             '--repo-name', '${_OWNER}/${REPO_NAME}',
+             '--repo-name', '${_GITHUB_REPO}',
              '--tag-file', "${_TAG_FILE}"]
     
     # FIX(glasnt) For tags identified, remove them
@@ -55,3 +55,4 @@ substitutions:
     _SERVICE_NAME: myservice
     _REGION: us-central1
     _TAG_FILE: tags-to-delete.txt
+    _GITHUB_REPO: $(push.repository.name)
