@@ -35,7 +35,7 @@ steps:
              '--region', '${_REGION}',
              '--service', '${_SERVICE_NAME}',
              '--pull-request', '${_PR_NUMBER}',
-             '--repo-name', '${_GITHUB_USER}/${REPO_NAME}',
+             '--repo-name', '${_OWNER}/${REPO_NAME}',
              '--commit-sha', '${SHORT_SHA}']
 
 substitutions: 
