@@ -7,7 +7,6 @@ A template repository for a sample Cloud Run service, written in Python
 
 ## Contributions
 
-
 Please see the [contributing guidelines](CONTRIBUTING.md)
 
 ## License
